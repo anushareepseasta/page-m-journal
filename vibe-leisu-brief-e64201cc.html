@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>雷速 · 让信息自然流动</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: linear-gradient(145deg, #fef3e0 0%, #fbddb5 40%, #f7cba0 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem;
+      line-height: 1.6;
+      color: #2c241a;
+    }
+
+    .magazine-wrapper {
+      max-width: 900px;
+      width: 100%;
+      background: rgba(255, 248, 240, 0.55);
+      backdrop-filter: blur(2px);
+      border-radius: 48px 48px 32px 32px;
+      box-shadow: 0 20px 40px -12px rgba(80, 45, 20, 0.25);
+      overflow: hidden;
+      padding: 2.5rem 2.2rem 3rem;
+      transition: all 0.2s ease;
+    }
+
+    /* 首页横幅 —— 杂志专题感 */
+    .hero-banner {
+      background: linear-gradient(112deg, #fceae0, #fddbc7);
+      border-radius: 36px 36px 24px 24px;
+      padding: 2.2rem 2rem 2rem;
+      margin-bottom: 2.5rem;
+      border-left: 8px solid #b48b6f;
+      box-shadow: inset 0 -1px 0 rgba(255, 255, 240, 0.5);
+      position: relative;
+    }
+
+    .hero-banner h1 {
+      font-size: 2.6rem;
+      font-weight: 520;
+      letter-spacing: -0.02em;
+      color: #3b2b1d;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .hero-banner .subhead {
+      font-size: 1.2rem;
+      font-weight: 390;
+      color: #5f4a35;
+      border-top: 2px dotted #d5b59e;
+      padding-top: 0.8rem;
+      margin-top: 0.7rem;
+    }
+
+    .hero-banner .decoration {
+      position: absolute;
+      right: 20px;
+      bottom: 18px;
+      font-size: 2.8rem;
+      opacity: 0.2;
+      color: #8e6b4b;
+      transform: rotate(8deg);
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* 背景说明卡片 */
+    .context-card {
+      background: #fffcf9;
+      border-radius: 28px;
+      padding: 1.8rem 2rem;
+      margin-bottom: 1.8rem;
+      box-shadow: 0 4px 12px rgba(140, 85, 45, 0.08);
+      border: 1px solid rgba(245, 210, 180, 0.4);
+    }
+
+    .context-card h2 {
+      font-size: 1.6rem;
+      font-weight: 460;
+      color: #4a3524;
+      margin-bottom: 0.75rem;
+      border-left: 5px solid #cb9f80;
+      padding-left: 0.9rem;
+    }
+
+    .context-card p {
+      margin-bottom: 0.9rem;
+      color: #3b2f23;
+    }
+
+    .context-card p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* 三段自然介绍 */
+    .intro-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin-bottom: 2.2rem;
+    }
+
+    .intro-item {
+      background: white;
+      border-radius: 26px;
+      padding: 1.6rem 2rem;
+      box-shadow: 0 2px 8px rgba(100, 60, 30, 0.06);
+      transition: transform 0.15s ease, box-shadow 0.2s;
+      border-left: 4px solid #e7cbbc;
+    }
+
+    .intro-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px -8px rgba(100, 55, 25, 0.15);
+      border-left-color: #b58766;
+    }
+
+    .intro-item h3 {
+      font-size: 1.35rem;
+      font-weight: 480;
+      color: #4d3824;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .intro-item h3 span {
+      background: #e5d5c3;
+      color: #3f2c1b;
+      font-size: 0.85rem;
+      border-radius: 40px;
+      padding: 0.2rem 0.8rem;
+      font-weight: 390;
+      letter-spacing: 0.3px;
+    }
+
+    .intro-item p {
+      color: #3c2c1e;
+      margin-top: 0.4rem;
+    }
+
+    /* FAQ 摘要区 —— 契合杂志风格 */
+    .faq-digest {
+      background: #f8efe6;
+      border-radius: 28px;
+      padding: 1.5rem 2rem 1.8rem;
+      margin-top: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: inset 0 1px 4px rgba(255, 245, 230, 0.6);
+    }
+
+    .faq-digest h2 {
+      font-size: 1.4rem;
+      font-weight: 460;
+      color: #4a3321;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #dac0ac;
+      padding-bottom: 0.5rem;
+    }
+
+    .faq-digest details {
+      margin-bottom: 0.6rem;
+      border-bottom: 1px solid #e4cebb;
+      padding-bottom: 0.5rem;
+    }
+
+    .faq-digest details:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .faq-digest summary {
+      font-weight: 460;
+      color: #4f3927;
+      cursor: pointer;
+      padding: 0.2rem 0;
+      transition: color 0.1s;
+      list-style: disclosure-closed inside;
+    }
+
+    .faq-digest summary:hover {
+      color: #7c5c40;
+    }
+
+    .faq-digest details[open] summary {
+      list-style: disclosure-open inside;
+    }
+
+    .faq-digest .answer {
+      padding: 0.6rem 0.2rem 0.2rem 1.5rem;
+      color: #382b1e;
+      font-size: 0.95rem;
+    }
+
+    /* 页尾访问提示 —— 自然嵌入链接 */
+    .footer-visit {
+      background: #f7f1e9;
+      border-radius: 40px;
+      padding: 1.3rem 2rem;
+      text-align: center;
+      margin-top: 1.8rem;
+      border: 1px solid #f0dccb;
+      box-shadow: 0 2px 10px rgba(120, 65, 35, 0.05);
+    }
+
+    .footer-visit p {
+      font-size: 1.05rem;
+      color: #2e2016;
+    }
+
+    .footer-visit a {
+      color: #7f583a;
+      background: transparent;
+      text-decoration: none;
+      font-weight: 520;
+      border-bottom: 2px solid #dbbca5;
+      padding-bottom: 1px;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .footer-visit a:hover {
+      border-bottom-color: #9f7255;
+      color: #4b311e;
+    }
+
+    /* 响应式细节 */
+    @media (max-width: 640px) {
+      body {
+        padding: 0.8rem;
+      }
+
+      .magazine-wrapper {
+        padding: 1.6rem 1rem 2rem;
+        border-radius: 32px;
+      }
+
+      .hero-banner {
+        padding: 1.6rem 1.2rem;
+      }
+
+      .hero-banner h1 {
+        font-size: 2rem;
+      }
+
+      .hero-banner .subhead {
+        font-size: 1rem;
+      }
+
+      .intro-item {
+        padding: 1.2rem 1.2rem;
+      }
+
+      .context-card {
+        padding: 1.3rem 1.2rem;
+      }
+
+      .faq-digest {
+        padding: 1.2rem 1.2rem;
+      }
+
+      .footer-visit {
+        padding: 1rem 1.2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-banner h1 {
+        font-size: 1.7rem;
+      }
+
+      .hero-banner .decoration {
+        display: none;
+      }
+
+      .intro-item h3 {
+        font-size: 1.2rem;
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="magazine-wrapper">
+
+  <!-- 首页横幅（杂志专题式） -->
+  <header class="hero-banner">
+    <h1>雷速 · 轻快的信息脉络</h1>
+    <div class="subhead">不堆砌，不喧哗 —— 让浏览回归自然</div>
+    <div class="decoration">✦</div>
+  </header>
+
+  <!-- 背景说明卡片 -->
+  <section class="context-card">
+    <h2>从一次停留开始</h2>
+    <p>许多朋友第一次来到 <strong>雷速官网</strong> 时，其实只是想快速了解这个站点到底提供什么、值不值得花时间。网站设计得再花哨，如果让人三秒内找不到方向，那就背离了本意。</p>
+    <p>所以这个页面试着用杂志式的节奏——先给你一个安静的横幅，再用几段话把「雷速」的轮廓慢慢展开。没有弹窗，没有紧迫感，你大可以像翻阅一本小册子一样，顺着读下去。</p>
+  </section>
+
+  <!-- 三段自然介绍（特点/场景/用途） -->
+  <div class="intro-grid">
+    <article class="intro-item">
+      <h3>☕ 信息轻量化 <span>特点</span></h3>
+      <p>雷速关注的是如何把内容以更温和的方式呈现。无论你在查找资讯、浏览页面还是确认细节，每一步都不需要费力辨认。界面留白、色彩克制、层级简单——让你把注意力放在真正重要的事情上。</p>
+    </article>
+
+    <article class="intro-item">
+      <h3>🌿 场景适配 <span>用途</span></h3>
+      <p>不管是晨间快速扫读，还是午后静心查阅，雷速的页面节奏都能自然跟随。没有突然的广告跳转，没有复杂菜单，甚至可以把它当作一个安静的信息锚点，随时回来刷新认知。</p>
+    </article>
+
+    <article class="intro-item">
+      <h3>📎 直达而不打扰 <span>设计</span></h3>
+      <p>每次访问 <a href="https://vibe-leisu.com" style="color:#7f583a; text-decoration:underline; text-underline-offset:3px;">雷速官网</a>，你会发现链接总是出现在句子的自然停顿处，就像对话里顺手递过来的一本参考书。我们希望交互能像翻页一样直觉，而不是被一堆按钮催促着做决定。</p>
+    </article>
+  </div>
+
+  <!-- FAQ 摘要（杂志常见问答片段） -->
+  <section class="faq-digest">
+    <h2>❝ 你可能好奇的几件事</h2>
+
+    <details>
+      <summary>雷速主要适合哪些人？</summary>
+      <div class="answer">适合希望快速获取准确信息、偏好干净浏览环境的朋友。不论你是日常浏览还是做轻量调研，这里的节奏都不会让你感到压迫。</div>
+    </details>
+
+    <details>
+      <summary>页面内容会频繁变动吗？</summary>
+      <div class="answer">雷速保持适度的更新节奏，重点放在内容质量和可读性上。每次打开都可能遇到新的叙述角度，但稳定的结构会让你始终感到熟悉。</div>
+    </details>
+
+    <details>
+      <summary>移动端浏览体验如何？</summary>
+      <div class="answer">完全响应式适配。从大屏幕到小屏，卡片、间距、字体都经过柔化处理，你在手机上阅读同样连贯舒服。</div>
+    </details>
+  </section>
+
+  <!-- 页尾访问提示 —— 自然嵌入，无硬广感 -->
+  <footer class="footer-visit">
+    <p>如果你愿意更完整地感受这种节奏，可以随时在浏览器地址栏输入 <a href="https://vibe-leisu.com">雷速官网</a>，那里有更安静的阅读角落等你发现。</p>
+  </footer>
+
+</div>
+</body>
+</html>
